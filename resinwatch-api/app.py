@@ -16,6 +16,7 @@ security = HTTPBasic()
 
 
 def login(credentials: HTTPBasicCredentials = Depends(security)):
+    # Comparing username and password from .env file
     correct_username = secrets.compare_digest(
         credentials.username, os.getenv("APP_USERNAME")
     )
@@ -33,6 +34,7 @@ def login(credentials: HTTPBasicCredentials = Depends(security)):
 
 @app.get("/api/{uid}")
 async def get_data(uid: str, login: bool = Depends(login)):
+    # Comparing UID from .env file
     if secrets.compare_digest(uid, os.getenv("UID")):
         try:
             data = await genshinapi.get_data(
