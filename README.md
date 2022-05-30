@@ -36,7 +36,10 @@ Please refer to respective readme inside.
 ## Project Documentation
 <img alt="image2" src="https://raw.githubusercontent.com/rdhwan/resinwatch/main/src/img2.jpg" width="500">
 <img alt="image3" src="https://raw.githubusercontent.com/rdhwan/resinwatch/main/src/img3.jpg" width="500">
-[![resinwatch youtube](https://img.youtube.com/vi/2ba3liDg4jw/0.jpg)](https://www.youtube.com/watch?v=2ba3liDg4jw)
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=2ba3liDg4jw" target="_blank">
+ <img src="https://img.youtube.com/vi/2ba3liDg4jw/maxresdefault.jpg" alt="YouTube" width="500" border="5" />
+</a>
 
 ## License
 This project is licensed under the MIT.
