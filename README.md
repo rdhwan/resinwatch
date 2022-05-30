@@ -9,9 +9,9 @@
 </p>
 
 ## About
-This is my "amateur/beginner" attempt to understanding the basic of NodeMCU (ESP8266). You may find bad code or wrong parameters since im not a C/C++ programmer (most on python hehe).
+This is my "amateur/beginner" attempt to understanding the basic of NodeMCU (ESP8266). You may find bad code or wrong parameters since im not a C/C++ programmer (mostly on python hehe).
 
-Also using FastApi and genshin.py as backend service.
+This project is also using FastApi and genshin.py as api service.
 
 ## How it works
 0. Connect to the provided wifi on setup.
