@@ -3,10 +3,8 @@ The RESTapi of ResinWatch to provide the needed data.
 
 ## Modules used
 - FastApi
-- Uvicorn
-- Starlette
+- Uvicorn/Gunicorn
 - Genshin.py (need cookies, read the Cookies section below)
-- Pydantic
 
 ## Cookies
 Cookies are needed for genshin.py to get the realtime notes of your account.

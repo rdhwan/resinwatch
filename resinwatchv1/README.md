@@ -13,7 +13,7 @@ If you change your button input pin, don't forget to change `buttonPin`. In my c
 ## Hardware Used 
 - ESP8266 board (i use NodeMCU v3 lolin).
 - SSD1306 128x64 monochrome OLED display.
-- Generic 4/2 pins button (yep no need pullup resistor on this, i used the builtin `INPUT_PULLUP`).
+- Generic 4/2 pins button (yep no need pullup resistor on this, using the builtin `INPUT_PULLUP`).
 
 ## Library Dependencies
 - adafruit/Adafruit BusIO@^1.11.6
@@ -31,16 +31,13 @@ const char *ssid = "!YOUR_WIFI_SSID_HERE";
 const char *password = "!YOUR_WIFI_PASSWORD_HERE";
 
 // Line 16
-const char *serverURL = "http://!YOUR_DOMAIN/api/!YOUR_GENSHIN_UID";
+const char *serverURL = "http://!YOUR_DOMAIN:8000/api/!YOUR_GENSHIN_UID";
 // Use your hostname/IP if you are hosting on the same network
 // same genshin uid from api .env
 
 // LINE 161
 http.addHeader("Authorization", "Basic !YOUR_BASE64_ENCODED_HTTPBASIC_AUTH_PASSWORD");
 // BASE64 encoded APP_PASSWORD, from api .env
-
-
-
 ```
 
 ## Project Images
