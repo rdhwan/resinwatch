@@ -1,5 +1,4 @@
 import genshin
-import os
 
 
 async def get_data(token: dict, uid: str) -> dict:

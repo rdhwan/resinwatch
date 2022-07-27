@@ -1,47 +1,29 @@
 import os
 import secrets
 
-from dotenv import load_dotenv
-from fastapi import Depends, FastAPI, HTTPException, Request
-from fastapi.security import HTTPBasic, HTTPBasicCredentials
-from starlette.status import HTTP_401_UNAUTHORIZED
-
-from models import UID, ResponseModel, ErrorResponseModel
 from api import genshinapi
+from dotenv import load_dotenv
+from fastapi import Depends, FastAPI, HTTPException
+from fastapi.security import OAuth2PasswordBearer
+from models import ResponseModel
 
 load_dotenv()
 app = FastAPI(openapi_url=None, docs_url=None)
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl=os.getenv("BEARER_TOKEN"))
 
-security = HTTPBasic()
-
-
-def login(credentials: HTTPBasicCredentials = Depends(security)):
-    # Comparing username and password from .env file
-    correct_username = secrets.compare_digest(
-        credentials.username, os.getenv("APP_USERNAME")
-    )
-    correct_password = secrets.compare_digest(
-        credentials.password, os.getenv("APP_PASSWORD")
-    )
-    if not (correct_username and correct_password):
-        raise HTTPException(
-            status_code=HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Basic"},
-        )
-    return True
+USER_UID = os.getenv("UID")
 
 
 @app.get("/api/{uid}")
-async def get_data(uid: str, login: bool = Depends(login)):
-    # Comparing UID from .env file
-    if secrets.compare_digest(uid, os.getenv("UID")):
-        try:
-            data = await genshinapi.get_data(
-                {"ltuid": os.getenv("LTUID"), "ltoken": os.getenv("LTOKEN")}, uid
-            )
-            return ResponseModel(data=data, message="Success")
-        except:
-            return ErrorResponseModel(code=500, message="Internal Server Error")
+async def get_data(uid: str, token: str = Depends(oauth2_scheme)):
+    if not secrets.compare_digest(uid, USER_UID):
+        return HTTPException(status_code=404, detail="Wrong UID")
 
-    return ErrorResponseModel(code=404, message="Wrong UID")
+    try:
+        data = await genshinapi.get_data(
+            {"ltuid": os.getenv("LTUID"), "ltoken": os.getenv("LTOKEN")}, uid
+        )
+        return ResponseModel(data=data, message="Success")
+
+    except BaseException:
+        return HTTPException(status_code=500, detail="Internal Server Error")
